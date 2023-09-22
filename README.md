@@ -22,3 +22,12 @@
   ]
 }
 ```
+
+### Requirements
+
+The only requirement is to have json-server running on your machine:</br>
+https://github.com/typicode/json-server#getting-started
+
+### Start The App
+1. ```npm run start:server```
+2. ```npm run start```
