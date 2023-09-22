@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import ApiService from './ApiService';
 import { useState } from 'react';
 import { produce } from 'immer';
-import { IAppPost, IDataAddPost, IDeletePost, IPost } from '../common/interfaces';
+import { IDataAddPost, IDeletePost, IPost } from '../common/interfaces';
 
 export enum EPostsHookReferer {
   ADD_POST,
@@ -68,7 +68,7 @@ function usePosts(): TPostsHook {
     }
   };
 
-  const addPost = async (data: IAppPost): Promise<void> => {
+  const addPost = async (data: IDataAddPost): Promise<void> => {
     resetState();
 
     const referer = EPostsHookReferer.ADD_POST;
