@@ -1,2 +1,20 @@
 .App {
+  &__post {
+    margin-bottom: 20px;
+  }
+
+  &__post-delete {
+    margin-top: 5px;
+  }
+
+  &__add-post {
+    display: flex;
+    flex-flow: column nowrap;
+    max-width: 200px;
+
+    // This is not BEM (no generic selectors) but will do for now.
+    & > * {
+      margin-bottom: 5px;
+    }
+  }
 }

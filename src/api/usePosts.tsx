@@ -2,21 +2,25 @@ import { AxiosError } from 'axios';
 import ApiService from './ApiService';
 import { useState } from 'react';
 import { produce } from 'immer';
-import { IResponsePost } from '../common/interfaces';
+import { IAppPost, IDataAddPost, IDeletePost, IPost } from '../common/interfaces';
 
 export enum EPostsHookReferer {
+  ADD_POST,
   GET_POSTS,
+  DELETE_POST,
 }
 
 interface IPostsHookState {
   loading: boolean;
   error: AxiosError | null;
-  response: IResponsePost | IResponsePost[] | null;
+  response: IPost | IPost[] | IDeletePost | null;
   referer: EPostsHookReferer | null;
 }
 
 type TPostsHook = [{
+  addPost: (data: IDataAddPost) => Promise<void>,
   getPosts: () => Promise<void>,
+  deletePost: (id: number) => Promise<void>,
 }, IPostsHookState];
 
 function usePosts(): TPostsHook {
@@ -51,7 +55,7 @@ function usePosts(): TPostsHook {
     const referer = EPostsHookReferer.GET_POSTS;
 
     try {
-      const response = await apiService.get<IResponsePost[]>();
+      const response = await apiService.get<IPost[]>();
 
       setState(produce(draft => {
         draft.error = null;
@@ -64,9 +68,51 @@ function usePosts(): TPostsHook {
     }
   };
 
+  const addPost = async (data: IAppPost): Promise<void> => {
+    resetState();
+
+    const referer = EPostsHookReferer.ADD_POST;
+
+    try {
+      const response = await apiService.post<IPost, IDataAddPost>({ data });
+
+      setState(produce(draft => {
+        draft.error = null;
+        draft.loading = false;
+        draft.response = response;
+        draft.referer = referer;
+      }));
+    } catch (error) {
+      setErrorState(error as AxiosError, referer);
+    }
+  }
+
+  const deletePost = async (id: number): Promise<void> => {
+    resetState();
+
+    const referer = EPostsHookReferer.DELETE_POST;
+
+    try {
+      await apiService.delete({
+        url: `/${id}`,
+      });
+
+      setState(produce(draft => {
+        draft.error = null;
+        draft.loading = false;
+        draft.response = { id };
+        draft.referer = referer;
+      }));
+    } catch (error) {
+      setErrorState(error as AxiosError, referer);
+    }
+  }
+
 
   return [{
+    addPost,
     getPosts,
+    deletePost,
   }, state];
 }
 

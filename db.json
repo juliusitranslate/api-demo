@@ -2,23 +2,18 @@
   "posts": [
     {
       "id": 0,
-      "title": "Apples",
-      "text": "Apples are great!"
+      "title": "Post 1",
+      "text": "This is the first post."
     },
     {
       "id": 1,
-      "title": "Bananas",
-      "text": "Apples are okay."
+      "title": "Post 2",
+      "text": "This is the second post."
     },
     {
       "id": 2,
-      "title": "Lemons",
-      "text": "Lemons are yuck."
-    },
-    {
-      "id": 3,
-      "title": "Eggplants",
-      "text": "Don't even get me started on those."
+      "title": "Post 3",
+      "text": "This is the third post."
     }
   ]
 }
