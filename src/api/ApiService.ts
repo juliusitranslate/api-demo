@@ -10,8 +10,8 @@ class ApiService {
 
   constructor(axiosConfig?: AxiosRequestConfig) {
     this.axios = axios.create({
-      baseURL: `http://localhost:3001/posts`,
       ...axiosConfig,
+      baseURL: `http://localhost:3001/posts`,
     });
   }
 
