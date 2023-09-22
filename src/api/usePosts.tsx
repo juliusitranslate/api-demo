@@ -28,7 +28,7 @@ function usePosts(): TPostsHook {
   const [state, setState] = useState<IPostsHookState>({
     error: null,
     loading: true,
-    response: [],
+    response: null,
     referer: null,
   });
 
